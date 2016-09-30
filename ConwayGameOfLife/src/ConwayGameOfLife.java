@@ -7,6 +7,9 @@ public class ConwayGameOfLife {
 
 		//For reference to "Conway's Game of Life: 
 		// https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"
+		
+		// for reference on ideas to visualize:
+		// http://www.bay12games.com/dwarves/
 
 		// declare variables
 		int[][] gridWorld = new int[5][5];
