@@ -4,6 +4,8 @@ public class ConwayGameOfLife {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
+		//For reference to "Conway's Game of Life: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"
+		
 		// declare variables
 		
 		// initilize world
