@@ -17,6 +17,8 @@ public class ConwayGameOfLife {
 		int[][] gridWorld = new int[gridHeight][gridWidth];
 		int[][] gridWorldToCome = new int[gridHeight][gridWidth];
 
+		int numberOfLifeCycles = 10;
+
 
 
 		// initilize world
@@ -25,17 +27,21 @@ public class ConwayGameOfLife {
 		// print off the world;
 		customMethodToPrintWorld(gridWorld);
 
-		// go through and make the next the worldToCome
-		gridWorldToCome = customMethodToUpdateWorld(gridWorld);
+		for(int lifeCycleCounter = 0; lifeCycleCounter < numberOfLifeCycles; lifeCycleCounter++){
 
-		// update display
-		customMethodToPrintWorld(gridWorldToCome);
+			// go through and make the next the worldToCome
+			gridWorldToCome = customMethodToUpdateWorld(gridWorld);
 
-		// copy the update and make Current World = worldToCome
-		gridWorld = gridWorldToCome;
+			// update display
+			customMethodToPrintWorld(gridWorldToCome);
 
-		// after a thousand generations, show what the world was and what it has become.
-		customMethodToPrintWorld(gridWorld);
+			// copy the update and make Current World = worldToCome
+			gridWorld = gridWorldToCome;
+
+			// after a thousand generations, show what the world was and what it has become.
+			customMethodToPrintWorld(gridWorld);
+			System.out.println("We have completed lives: " +(1+lifeCycleCounter));
+		}
 
 	}
 
@@ -146,16 +152,14 @@ public class ConwayGameOfLife {
 
 		if(heightCounter != 0 && heightCounter != (gridHeight-1)){
 			if(widthCounter!=0 && widthCounter != (gridWidth-1)){
-				System.out.println("This is a normal case.");
+				System.out.println("This is a normal case that handles the middle conditions.");
 
 				System.out.println("add first column of neighbors");
-
 				neighborCount = gridWorld[heightCounter -1 ][widthCounter -1] +
 						gridWorld[heightCounter -0 ][widthCounter -1] +
 						gridWorld[heightCounter +1 ][widthCounter -1];
 
 				System.out.println("add second column of neighbors");
-
 				neighborCount = neighborCount + 
 						gridWorld[heightCounter -1 ][widthCounter -0] +
 						//gridWorld[heightCounter -0 ][widthCounter -0] +
@@ -166,27 +170,20 @@ public class ConwayGameOfLife {
 						gridWorld[heightCounter -1 ][widthCounter +1] +
 						gridWorld[heightCounter -0 ][widthCounter +1] +
 						gridWorld[heightCounter +1 ][widthCounter +1];
-			} else {
-				System.out.println("This is a boundry case for width.");
-			}
-		} else {
-			System.out.println("This is a boundry case for height.");
-		}
+			} 
+		} 
 
-		System.out.println("Let's look at the boundry conditions.");
-		
+
 		if( 0 == heightCounter){
 			System.out.println("Looking at the top row.");
 			if(widthCounter!=0 && widthCounter != (gridWidth-1)){
 
 				System.out.println("add first column of neighbors");
-
 				neighborCount = gridWorld[gridHeight-1 ][widthCounter -1] +
 						gridWorld[heightCounter -0 ][widthCounter -1] +
 						gridWorld[heightCounter +1 ][widthCounter -1];
 
 				System.out.println("add second column of neighbors");
-
 				neighborCount = neighborCount + 
 						gridWorld[gridHeight-1 ][widthCounter -0] +
 						//gridWorld[heightCounter -0 ][widthCounter -0] +
@@ -199,19 +196,18 @@ public class ConwayGameOfLife {
 						gridWorld[heightCounter +1 ][widthCounter +1];
 			} 
 		} 
-		
-		
+
+
 		if(heightCounter == (gridHeight-1)){
 			System.out.println(" Looking at the bottom row.");
 			if(widthCounter!=0 && widthCounter != (gridWidth-1)){
-				System.out.println("add first column of neighbors");
 
+				System.out.println("add first column of neighbors");
 				neighborCount = gridWorld[heightCounter -1 ][widthCounter -1] +
 						gridWorld[heightCounter -0 ][widthCounter -1] +
 						gridWorld[0 ][widthCounter -1];
 
 				System.out.println("add second column of neighbors");
-
 				neighborCount = neighborCount + 
 						gridWorld[heightCounter -1 ][widthCounter -0] +
 						//gridWorld[heightCounter -0 ][widthCounter -0] +
@@ -222,11 +218,145 @@ public class ConwayGameOfLife {
 						gridWorld[heightCounter -1 ][widthCounter +1] +
 						gridWorld[heightCounter -0 ][widthCounter +1] +
 						gridWorld[0 ][widthCounter +1];
-			} else {
-				System.out.println("This is a boundry case for width.");
-			}
-		} else {
-			System.out.println("This is a boundry case for height.");
+			} 
+		} 
+
+		if(heightCounter != 0 && heightCounter != (gridHeight-1)){
+			if(0 == widthCounter){
+				System.out.println("This on the left side, but not at the top or bottom.");
+
+				System.out.println("add first column of neighbors");
+				neighborCount = gridWorld[heightCounter -1 ][(gridWidth-1)] +
+						gridWorld[heightCounter -0 ][(gridWidth-1)] +
+						gridWorld[heightCounter +1 ][(gridWidth-1)];
+
+				System.out.println("add second column of neighbors");
+				neighborCount = neighborCount + 
+						gridWorld[heightCounter -1 ][widthCounter -0] +
+						//gridWorld[heightCounter -0 ][widthCounter -0] +
+						gridWorld[heightCounter +1 ][widthCounter -0];
+
+				System.out.println("add third column of neighbors");
+				neighborCount = neighborCount + 
+						gridWorld[heightCounter -1 ][widthCounter +1] +
+						gridWorld[heightCounter -0 ][widthCounter +1] +
+						gridWorld[heightCounter +1 ][widthCounter +1];
+			} 
+		}
+
+		if(heightCounter != 0 && heightCounter != (gridHeight-1)){
+			if(widthCounter == (gridWidth-1)){
+				System.out.println("This is the left column.");
+
+				System.out.println("add first column of neighbors");
+				neighborCount = gridWorld[heightCounter -1 ][widthCounter -1] +
+						gridWorld[heightCounter -0 ][widthCounter -1] +
+						gridWorld[heightCounter +1 ][widthCounter -1];
+
+				System.out.println("add second column of neighbors");
+				neighborCount = neighborCount + 
+						gridWorld[heightCounter -1 ][widthCounter -0] +
+						//gridWorld[heightCounter -0 ][widthCounter -0] +
+						gridWorld[heightCounter +1 ][widthCounter -0];
+
+				System.out.println("add third column of neighbors");
+				neighborCount = neighborCount + 
+						gridWorld[heightCounter -1 ][0] +
+						gridWorld[heightCounter -0 ][0] +
+						gridWorld[heightCounter +1 ][0];
+			} 
+		} 
+
+		if(0 == heightCounter){
+			if(0 == widthCounter){
+				System.out.println("This is the upper left corner. \n (1 of 4)");
+
+				System.out.println("add first column of neighbors");
+				neighborCount = gridWorld[(gridHeight-1) ][(gridWidth-1)] +
+						gridWorld[heightCounter -0 ][(gridWidth-1)] +
+						gridWorld[heightCounter +1 ][(gridWidth-1)];
+
+				System.out.println("add second column of neighbors");
+				neighborCount = neighborCount + 
+						gridWorld[(gridHeight-1) ][widthCounter -0] +
+						//gridWorld[heightCounter -0 ][widthCounter -0] +
+						gridWorld[heightCounter +1 ][widthCounter -0];
+
+				System.out.println("add third column of neighbors");
+				neighborCount = neighborCount + 
+						gridWorld[(gridHeight-1)][widthCounter +1] +
+						gridWorld[heightCounter -0 ][widthCounter +1] +
+						gridWorld[heightCounter +1 ][widthCounter +1];
+			} 
+		}
+
+		if(0 == heightCounter){
+			if(widthCounter == (gridWidth-1)){
+				System.out.println("This is the upper right corner. \n (2 of 4)");
+
+				System.out.println("add first column of neighbors");
+				neighborCount = gridWorld[(gridHeight-1)][widthCounter -1] +
+						gridWorld[heightCounter -0 ][widthCounter -1] +
+						gridWorld[heightCounter +1 ][widthCounter -1];
+
+				System.out.println("add second column of neighbors");
+				neighborCount = neighborCount + 
+						gridWorld[(gridHeight-1)][widthCounter -0] +
+						//gridWorld[heightCounter -0 ][widthCounter -0] +
+						gridWorld[heightCounter +1 ][widthCounter -0];
+
+				System.out.println("add third column of neighbors");
+				neighborCount = neighborCount + 
+						gridWorld[(gridHeight-1)][0] +
+						gridWorld[heightCounter -0 ][0] +
+						gridWorld[heightCounter +1 ][0];
+			} 
+		} 
+
+		if(heightCounter == (gridHeight-1)){
+			if(0 == widthCounter){
+				System.out.println("This is the lower left corner. \n (3 of 4)");
+
+				System.out.println("add first column of neighbors");
+				neighborCount = gridWorld[heightCounter -1 ][(gridWidth-1)] +
+						gridWorld[heightCounter -0 ][(gridWidth-1)] +
+						gridWorld[0 ][(gridWidth-1)];
+
+				System.out.println("add second column of neighbors");
+				neighborCount = neighborCount + 
+						gridWorld[heightCounter -1 ][widthCounter -0] +
+						//gridWorld[heightCounter -0 ][widthCounter -0] +
+						gridWorld[0 ][widthCounter -0];
+
+				System.out.println("add third column of neighbors");
+				neighborCount = neighborCount + 
+						gridWorld[heightCounter -1 ][widthCounter +1] +
+						gridWorld[heightCounter -0 ][widthCounter +1] +
+						gridWorld[0][widthCounter +1];
+			} 
+		} 
+
+		if(heightCounter == (gridHeight-1)){
+			if(widthCounter == (gridWidth-1)){
+				System.out.println("This is the lower right corner. \n (4 of 4)");
+
+				System.out.println("add first column of neighbors");
+				neighborCount = gridWorld[heightCounter -1 ][widthCounter -1] +
+						gridWorld[heightCounter -0 ][widthCounter -1] +
+						gridWorld[0 ][widthCounter -1];
+
+				System.out.println("add second column of neighbors");
+				neighborCount = neighborCount + 
+						gridWorld[heightCounter -1 ][widthCounter -0] +
+						//gridWorld[heightCounter -0 ][widthCounter -0] +
+						gridWorld[0][widthCounter -0];
+
+				System.out.println("add third column of neighbors");
+				neighborCount = neighborCount + 
+						gridWorld[heightCounter -1 ][0] +
+						gridWorld[heightCounter -0 ][0] +
+						gridWorld[0][0];
+			} 
 		}
 
 		System.out.println("Our neighbor count is: " + neighborCount);
