@@ -17,6 +17,8 @@ public class ConwayGameOfLife {
 		int[][] gridWorld = new int[gridHeight][gridWidth];
 		int[][] gridWorldToCome = new int[gridHeight][gridWidth];
 
+		int numberOfCycles = 3;
+
 
 
 		// initilize world
@@ -25,14 +27,19 @@ public class ConwayGameOfLife {
 		// print off the world;
 		customMethodToPrintWorld(gridWorld);
 
-		// go through and make the next the worldToCome
-		gridWorldToCome = customMethodToUpdateWorld(gridWorld);
+		for(int cycleCounter = 1; cycleCounter <= numberOfCycles; cycleCounter++){
+			// go through and make the next the worldToCome
+			gridWorldToCome = customMethodToUpdateWorld(gridWorld);
 
-		// update display
-		customMethodToPrintWorld(gridWorldToCome);
+			System.out.println("Cycle");
+			// update display
+			customMethodToPrintWorld(gridWorldToCome);
 
-		// copy the update and make Current World = worldToCome
-		gridWorld = gridWorldToCome;
+			// copy the update and make Current World = worldToCome
+			gridWorld = gridWorldToCome;
+			
+			
+		}
 
 		// after a thousand generations, show what the world was and what it has become.
 		customMethodToPrintWorld(gridWorld);
@@ -68,9 +75,9 @@ public class ConwayGameOfLife {
 	}
 	public static void customMethodToPrintWorld(int[][] gridWorld) {
 		int gridHeight = gridWorld.length;
-		System.out.println("Our array Size 1 is: " + gridHeight);
+		//System.out.println("Our array Size 1 is: " + gridHeight);
 		int gridWidth = gridWorld[0].length;
-		System.out.println("Our array Size 2 is: " + gridWidth);
+		//System.out.println("Our array Size 2 is: " + gridWidth);
 
 		// printing off the world:
 		System.out.println("Let's see the world");
@@ -87,26 +94,26 @@ public class ConwayGameOfLife {
 	public static int[][] customMethodToUpdateWorld(int[][] gridWorld) {
 
 		int[][] gridWorldToCome = gridWorld;
-		System.out.println("Updating the world custom method call.");
+		//System.out.println("Updating the world custom method call.");
 		int gridHeight = gridWorld.length;
-		System.out.println("Our array width is: " + gridHeight);
+		//System.out.println("Our array width is: " + gridHeight);
 		int gridWidth = gridWorld[0].length;
-		System.out.println("Our array length is: " + gridWidth);
+		//System.out.println("Our array length is: " + gridWidth);
 
 		int neighborCount = 0;
 
 		// work through the grid
-		System.out.println("Let's update every little life.");
+		//System.out.println("Let's update every little life.");
 		for(int heightCounter = 0; heightCounter <gridHeight; heightCounter++){
-			System.out.println("Starting a new row.");
+			//System.out.println("Starting a new row.");
 			for(int widthCounter = 0; widthCounter<gridWidth; widthCounter++){
 
-				System.out.println("We are looking at grid location row: " + heightCounter +
-						" column: " + widthCounter);
+				//System.out.println("We are looking at grid location row: " + heightCounter +
+					//	" column: " + widthCounter);
 
 				neighborCount = customMethodToCountNeighbors(gridWorld, heightCounter, widthCounter );
 
-				System.out.println("We have our neighbor count.");
+				//System.out.println("We have our neighbor count.");
 
 				if(1 == gridWorldToCome[heightCounter][widthCounter]){
 					if(2 > neighborCount){
@@ -126,11 +133,11 @@ public class ConwayGameOfLife {
 				}
 
 
-				System.out.print("\t" + gridWorld[heightCounter][widthCounter]);
+				//System.out.print("\t" + gridWorld[heightCounter][widthCounter]);
 			}
-			System.out.println();
+			//System.out.println();
 		}
-		System.out.println("and that is our UPDATED world.");
+		//System.out.println("and that is our UPDATED world.");
 		return gridWorldToCome;
 	}
 
@@ -138,98 +145,98 @@ public class ConwayGameOfLife {
 	public static int customMethodToCountNeighbors(int[][] gridWorld, int heightCounter, int widthCounter) {
 		int neighborCount = 0;
 
-		System.out.println("Counting Neighbors.");
+		//System.out.println("Counting Neighbors.");
 		int gridHeight = gridWorld.length;
-		System.out.println("Our array width is: " + gridHeight);
+		//System.out.println("Our array width is: " + gridHeight);
 		int gridWidth = gridWorld[0].length;
-		System.out.println("Our array length is: " + gridWidth);
+		//System.out.println("Our array length is: " + gridWidth);
 
 		if(heightCounter != 0 && heightCounter != (gridHeight-1)){
 			if(widthCounter!=0 && widthCounter != (gridWidth-1)){
-				System.out.println("This is a normal case.");
+			//	System.out.println("This is a normal case.");
 
-				System.out.println("add first column of neighbors");
+				//System.out.println("add first column of neighbors");
 
 				neighborCount = gridWorld[heightCounter -1 ][widthCounter -1] +
 						gridWorld[heightCounter -0 ][widthCounter -1] +
 						gridWorld[heightCounter +1 ][widthCounter -1];
 
-				System.out.println("add second column of neighbors");
+				//System.out.println("add second column of neighbors");
 
 				neighborCount = neighborCount + 
 						gridWorld[heightCounter -1 ][widthCounter -0] +
 						//gridWorld[heightCounter -0 ][widthCounter -0] +
 						gridWorld[heightCounter +1 ][widthCounter -0];
 
-				System.out.println("add third column of neighbors");
+				//System.out.println("add third column of neighbors");
 				neighborCount = neighborCount + 
 						gridWorld[heightCounter -1 ][widthCounter +1] +
 						gridWorld[heightCounter -0 ][widthCounter +1] +
 						gridWorld[heightCounter +1 ][widthCounter +1];
 			} else {
-				System.out.println("This is a boundry case for width.");
+				//System.out.println("This is a boundry case for width.");
 			}
 		} else {
-			System.out.println("This is a boundry case for height.");
+			//System.out.println("This is a boundry case for height.");
 		}
 
-		System.out.println("Let's look at the boundry conditions.");
-		
+		//System.out.println("Let's look at the boundry conditions.");
+
 		if( 0 == heightCounter){
-			System.out.println("Looking at the top row.");
+			//System.out.println("Looking at the top row.");
 			if(widthCounter!=0 && widthCounter != (gridWidth-1)){
 
-				System.out.println("add first column of neighbors");
+				//System.out.println("add first column of neighbors");
 
 				neighborCount = gridWorld[gridHeight-1 ][widthCounter -1] +
 						gridWorld[heightCounter -0 ][widthCounter -1] +
 						gridWorld[heightCounter +1 ][widthCounter -1];
 
-				System.out.println("add second column of neighbors");
+				//System.out.println("add second column of neighbors");
 
 				neighborCount = neighborCount + 
 						gridWorld[gridHeight-1 ][widthCounter -0] +
 						//gridWorld[heightCounter -0 ][widthCounter -0] +
 						gridWorld[heightCounter +1][widthCounter -0];
 
-				System.out.println("add third column of neighbors");
+				//System.out.println("add third column of neighbors");
 				neighborCount = neighborCount + 
 						gridWorld[gridHeight-1 ][widthCounter +1] +
 						gridWorld[heightCounter -0 ][widthCounter +1] +
 						gridWorld[heightCounter +1 ][widthCounter +1];
 			} 
 		} 
-		
-		
+
+
 		if(heightCounter == (gridHeight-1)){
-			System.out.println(" Looking at the bottom row.");
+			//System.out.println(" Looking at the bottom row.");
 			if(widthCounter!=0 && widthCounter != (gridWidth-1)){
-				System.out.println("add first column of neighbors");
+				//System.out.println("add first column of neighbors");
 
 				neighborCount = gridWorld[heightCounter -1 ][widthCounter -1] +
 						gridWorld[heightCounter -0 ][widthCounter -1] +
 						gridWorld[0 ][widthCounter -1];
 
-				System.out.println("add second column of neighbors");
+				//System.out.println("add second column of neighbors");
 
 				neighborCount = neighborCount + 
 						gridWorld[heightCounter -1 ][widthCounter -0] +
 						//gridWorld[heightCounter -0 ][widthCounter -0] +
 						gridWorld[0 ][widthCounter -0];
 
-				System.out.println("add third column of neighbors");
+				//System.out.println("add third column of neighbors");
 				neighborCount = neighborCount + 
 						gridWorld[heightCounter -1 ][widthCounter +1] +
 						gridWorld[heightCounter -0 ][widthCounter +1] +
 						gridWorld[0 ][widthCounter +1];
 			} else {
-				System.out.println("This is a boundry case for width.");
+				//System.out.println("This is a boundry case for width.");
 			}
 		} else {
-			System.out.println("This is a boundry case for height.");
+			//System.out.println("This is a boundry case for height.");
 		}
 
-		System.out.println("Our neighbor count is: " + neighborCount);
+		//System.out.println("Our neighbor count is: " + neighborCount);
 
 		return neighborCount;
 	}
