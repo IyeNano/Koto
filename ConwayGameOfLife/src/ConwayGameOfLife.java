@@ -18,16 +18,22 @@ public class ConwayGameOfLife {
 		int[][] gridWorldToCome = new int[gridHeight][gridWidth];
 
 
+		double thresholdForLife = 0.7;
 		int numberOfCycles = 5;
 		int underPopulation = 2; 
 		int overPopulation = 3;
+		
 
 
 		// initilize world
-		gridWorld = customMethodToInitilizeWorld(gridWorld);
+		gridWorld = customMethodToInitilizeWorld(gridWorld, thresholdForLife);
+		
+		System.out.println("The world has life.");
+		
 
 		// print off the world;
 		customMethodToPrintWorld(gridWorld);
+		System.out.println("and that is our initial world.");
 
 
 		for(int lifeCycleCounter = 1; lifeCycleCounter <= numberOfCycles; lifeCycleCounter++){
@@ -44,15 +50,13 @@ public class ConwayGameOfLife {
 
 		}
 
-
-		// after a thousand generations, show what the world was and what it has become.
+		// after set number of generations, show what the world was and what it has become.
+		System.out.println("We have completed lives: " +(numberOfCycles) + " and this is our final world.");
 		customMethodToPrintWorld(gridWorld);
-		System.out.println("We have completed lives: " +(numberOfCycles));
-
-
+		
 	}
 
-	public static int[][] customMethodToInitilizeWorld(int[][] gridWorld) {
+	public static int[][] customMethodToInitilizeWorld(int[][] gridWorld, double thresholdForLife) {
 
 		double randomLifeStart = 0.0;
 
@@ -65,16 +69,16 @@ public class ConwayGameOfLife {
 		for(int heightCounter = 0; heightCounter <gridHeight; heightCounter++){
 			for(int widthCounter = 0; widthCounter<gridWidth; widthCounter++){
 				randomLifeStart = Math.random();
-				if(0.3>randomLifeStart){
+				if(thresholdForLife<randomLifeStart){
 					gridWorld[heightCounter][widthCounter] = 1;
 				}else{
 					gridWorld[heightCounter][widthCounter] = 0;
 				}
-				System.out.print("\t" + gridWorld[heightCounter][widthCounter]);
+				//System.out.print("\t" + gridWorld[heightCounter][widthCounter]);
 			}
-			System.out.println();
+			//System.out.println();
 		}
-		System.out.println("The world has life.");
+		
 
 		return gridWorld;
 
@@ -93,7 +97,7 @@ public class ConwayGameOfLife {
 			}
 			System.out.println();
 		}
-		System.out.println("and that is our world.");
+
 	}
 
 
