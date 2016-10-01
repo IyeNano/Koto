@@ -18,7 +18,9 @@ public class ConwayGameOfLife {
 		int[][] gridWorldToCome = new int[gridHeight][gridWidth];
 
 
-		int numberOfCycles = 3;
+		int numberOfCycles = 5;
+		int underPopulation = 2; 
+		int overPopulation = 3;
 
 
 		// initilize world
@@ -28,32 +30,25 @@ public class ConwayGameOfLife {
 		customMethodToPrintWorld(gridWorld);
 
 
-		for(int lifeCycleCounter = 0; lifeCycleCounter < numberOfCycles; lifeCycleCounter++){
+		for(int lifeCycleCounter = 1; lifeCycleCounter <= numberOfCycles; lifeCycleCounter++){
 
 			// go through and make the next the worldToCome
-			gridWorldToCome = customMethodToUpdateWorld(gridWorld);
+			gridWorldToCome = customMethodToUpdateWorld(gridWorld, underPopulation, overPopulation);
 
-			// update display
-			customMethodToPrintWorld(gridWorldToCome);
-
-
-			// go through and make the next the worldToCome
-			gridWorldToCome = customMethodToUpdateWorld(gridWorld);
-
-			System.out.println("Cycle");
+			System.out.println("Cycle is " + lifeCycleCounter);
 			// update display
 			customMethodToPrintWorld(gridWorldToCome);
 
 			// copy the update and make Current World = worldToCome
 			gridWorld = gridWorldToCome;
 
-
-
-
-			// after a thousand generations, show what the world was and what it has become.
-			customMethodToPrintWorld(gridWorld);
-			System.out.println("We have completed lives: " +(1+lifeCycleCounter));
 		}
+
+
+		// after a thousand generations, show what the world was and what it has become.
+		customMethodToPrintWorld(gridWorld);
+		System.out.println("We have completed lives: " +(numberOfCycles));
+
 
 	}
 
@@ -62,9 +57,9 @@ public class ConwayGameOfLife {
 		double randomLifeStart = 0.0;
 
 		int gridHeight = gridWorld.length;
-		System.out.println("Our array height is: " + gridHeight);
+		//System.out.println("Our array height is: " + gridHeight);
 		int gridWidth = gridWorld[0].length;
-		System.out.println("Our array width is: " + gridWidth);
+		//System.out.println("Our array width is: " + gridWidth);
 
 
 		for(int heightCounter = 0; heightCounter <gridHeight; heightCounter++){
@@ -91,7 +86,7 @@ public class ConwayGameOfLife {
 		//System.out.println("Our array Size 2 is: " + gridWidth);
 
 		// printing off the world:
-		System.out.println("Let's see the world");
+		//System.out.println("Let's see the world");
 		for(int heightCounter = 0; heightCounter <gridHeight; heightCounter++){
 			for(int widthCounter = 0; widthCounter<gridWidth; widthCounter++){
 				System.out.print("\t" + gridWorld[heightCounter][widthCounter]);
@@ -102,7 +97,7 @@ public class ConwayGameOfLife {
 	}
 
 
-	public static int[][] customMethodToUpdateWorld(int[][] gridWorld) {
+	public static int[][] customMethodToUpdateWorld(int[][] gridWorld, int underPopulation, int overPopulation) {
 
 		int[][] gridWorldToCome = gridWorld;
 		//System.out.println("Updating the world custom method call.");
@@ -126,6 +121,11 @@ public class ConwayGameOfLife {
 
 				//System.out.println("We have our neighbor count.");
 
+				/* 
+				 * This is a good set of rules if you are only counting 4 neighbors.
+				 * However, if you want to count 8, you need to set the limits a little differently.
+
+
 				if(1 == gridWorldToCome[heightCounter][widthCounter]){
 					if(2 > neighborCount){
 						gridWorldToCome[heightCounter][widthCounter] = 0;
@@ -142,7 +142,26 @@ public class ConwayGameOfLife {
 						gridWorldToCome[heightCounter][widthCounter] = 1;
 					}
 				}
+				 */
+				
+				
+				
+				if(1 == gridWorldToCome[heightCounter][widthCounter]){
+					if(underPopulation > neighborCount){
+						gridWorldToCome[heightCounter][widthCounter] = 0;
+					}
 
+					if(underPopulation < neighborCount &&  neighborCount < overPopulation){
+						gridWorldToCome[heightCounter][widthCounter] = 1;
+					}
+					if(overPopulation < neighborCount){
+						gridWorldToCome[heightCounter][widthCounter] = 0;
+					}
+				} else {
+					if( underPopulation <neighborCount){
+						gridWorldToCome[heightCounter][widthCounter] = 1;
+					}
+				}
 
 				//System.out.print("\t" + gridWorld[heightCounter][widthCounter]);
 			}
@@ -229,7 +248,7 @@ public class ConwayGameOfLife {
 				//System.out.println("add first column of neighbors");
 
 
-				System.out.println("add first column of neighbors");
+				//System.out.println("add first column of neighbors");
 				neighborCount = gridWorld[heightCounter -1 ][widthCounter -1] +
 						gridWorld[heightCounter -0 ][widthCounter -1] +
 						gridWorld[0 ][widthCounter -1];
@@ -254,20 +273,20 @@ public class ConwayGameOfLife {
 
 		if(heightCounter != 0 && heightCounter != (gridHeight-1)){
 			if(0 == widthCounter){
-				System.out.println("This on the left side, but not at the top or bottom.");
+				//System.out.println("This on the left side, but not at the top or bottom.");
 
-				System.out.println("add first column of neighbors");
+				//System.out.println("add first column of neighbors");
 				neighborCount = gridWorld[heightCounter -1 ][(gridWidth-1)] +
 						gridWorld[heightCounter -0 ][(gridWidth-1)] +
 						gridWorld[heightCounter +1 ][(gridWidth-1)];
 
-				System.out.println("add second column of neighbors");
+				//System.out.println("add second column of neighbors");
 				neighborCount = neighborCount + 
 						gridWorld[heightCounter -1 ][widthCounter -0] +
 						//gridWorld[heightCounter -0 ][widthCounter -0] +
 						gridWorld[heightCounter +1 ][widthCounter -0];
 
-				System.out.println("add third column of neighbors");
+				//System.out.println("add third column of neighbors");
 				neighborCount = neighborCount + 
 						gridWorld[heightCounter -1 ][widthCounter +1] +
 						gridWorld[heightCounter -0 ][widthCounter +1] +
@@ -277,20 +296,20 @@ public class ConwayGameOfLife {
 
 		if(heightCounter != 0 && heightCounter != (gridHeight-1)){
 			if(widthCounter == (gridWidth-1)){
-				System.out.println("This is the left column.");
+				//System.out.println("This is the left column.");
 
-				System.out.println("add first column of neighbors");
+				//System.out.println("add first column of neighbors");
 				neighborCount = gridWorld[heightCounter -1 ][widthCounter -1] +
 						gridWorld[heightCounter -0 ][widthCounter -1] +
 						gridWorld[heightCounter +1 ][widthCounter -1];
 
-				System.out.println("add second column of neighbors");
+				//System.out.println("add second column of neighbors");
 				neighborCount = neighborCount + 
 						gridWorld[heightCounter -1 ][widthCounter -0] +
 						//gridWorld[heightCounter -0 ][widthCounter -0] +
 						gridWorld[heightCounter +1 ][widthCounter -0];
 
-				System.out.println("add third column of neighbors");
+				//System.out.println("add third column of neighbors");
 				neighborCount = neighborCount + 
 						gridWorld[heightCounter -1 ][0] +
 						gridWorld[heightCounter -0 ][0] +
@@ -300,20 +319,20 @@ public class ConwayGameOfLife {
 
 		if(0 == heightCounter){
 			if(0 == widthCounter){
-				System.out.println("This is the upper left corner. \n (1 of 4)");
+				//System.out.println("This is the upper left corner. \n (1 of 4)");
 
-				System.out.println("add first column of neighbors");
+				//System.out.println("add first column of neighbors");
 				neighborCount = gridWorld[(gridHeight-1) ][(gridWidth-1)] +
 						gridWorld[heightCounter -0 ][(gridWidth-1)] +
 						gridWorld[heightCounter +1 ][(gridWidth-1)];
 
-				System.out.println("add second column of neighbors");
+				//System.out.println("add second column of neighbors");
 				neighborCount = neighborCount + 
 						gridWorld[(gridHeight-1) ][widthCounter -0] +
 						//gridWorld[heightCounter -0 ][widthCounter -0] +
 						gridWorld[heightCounter +1 ][widthCounter -0];
 
-				System.out.println("add third column of neighbors");
+				//System.out.println("add third column of neighbors");
 				neighborCount = neighborCount + 
 						gridWorld[(gridHeight-1)][widthCounter +1] +
 						gridWorld[heightCounter -0 ][widthCounter +1] +
@@ -323,20 +342,20 @@ public class ConwayGameOfLife {
 
 		if(0 == heightCounter){
 			if(widthCounter == (gridWidth-1)){
-				System.out.println("This is the upper right corner. \n (2 of 4)");
+				//System.out.println("This is the upper right corner. \n (2 of 4)");
 
-				System.out.println("add first column of neighbors");
+				//System.out.println("add first column of neighbors");
 				neighborCount = gridWorld[(gridHeight-1)][widthCounter -1] +
 						gridWorld[heightCounter -0 ][widthCounter -1] +
 						gridWorld[heightCounter +1 ][widthCounter -1];
 
-				System.out.println("add second column of neighbors");
+				//System.out.println("add second column of neighbors");
 				neighborCount = neighborCount + 
 						gridWorld[(gridHeight-1)][widthCounter -0] +
 						//gridWorld[heightCounter -0 ][widthCounter -0] +
 						gridWorld[heightCounter +1 ][widthCounter -0];
 
-				System.out.println("add third column of neighbors");
+				//System.out.println("add third column of neighbors");
 				neighborCount = neighborCount + 
 						gridWorld[(gridHeight-1)][0] +
 						gridWorld[heightCounter -0 ][0] +
@@ -346,20 +365,20 @@ public class ConwayGameOfLife {
 
 		if(heightCounter == (gridHeight-1)){
 			if(0 == widthCounter){
-				System.out.println("This is the lower left corner. \n (3 of 4)");
+				//System.out.println("This is the lower left corner. \n (3 of 4)");
 
-				System.out.println("add first column of neighbors");
+				//System.out.println("add first column of neighbors");
 				neighborCount = gridWorld[heightCounter -1 ][(gridWidth-1)] +
 						gridWorld[heightCounter -0 ][(gridWidth-1)] +
 						gridWorld[0 ][(gridWidth-1)];
 
-				System.out.println("add second column of neighbors");
+				//System.out.println("add second column of neighbors");
 				neighborCount = neighborCount + 
 						gridWorld[heightCounter -1 ][widthCounter -0] +
 						//gridWorld[heightCounter -0 ][widthCounter -0] +
 						gridWorld[0 ][widthCounter -0];
 
-				System.out.println("add third column of neighbors");
+				//System.out.println("add third column of neighbors");
 				neighborCount = neighborCount + 
 						gridWorld[heightCounter -1 ][widthCounter +1] +
 						gridWorld[heightCounter -0 ][widthCounter +1] +
@@ -369,20 +388,20 @@ public class ConwayGameOfLife {
 
 		if(heightCounter == (gridHeight-1)){
 			if(widthCounter == (gridWidth-1)){
-				System.out.println("This is the lower right corner. \n (4 of 4)");
+				//System.out.println("This is the lower right corner. \n (4 of 4)");
 
-				System.out.println("add first column of neighbors");
+				//System.out.println("add first column of neighbors");
 				neighborCount = gridWorld[heightCounter -1 ][widthCounter -1] +
 						gridWorld[heightCounter -0 ][widthCounter -1] +
 						gridWorld[0 ][widthCounter -1];
 
-				System.out.println("add second column of neighbors");
+				//System.out.println("add second column of neighbors");
 				neighborCount = neighborCount + 
 						gridWorld[heightCounter -1 ][widthCounter -0] +
 						//gridWorld[heightCounter -0 ][widthCounter -0] +
 						gridWorld[0][widthCounter -0];
 
-				System.out.println("add third column of neighbors");
+				//System.out.println("add third column of neighbors");
 				neighborCount = neighborCount + 
 						gridWorld[heightCounter -1 ][0] +
 						gridWorld[heightCounter -0 ][0] +
