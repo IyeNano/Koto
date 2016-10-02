@@ -12,7 +12,10 @@ import javax.imageio.ImageIO;
 
 public class makeAbitmap {
 	public static void main(String[] args) {
-		BufferedImage img = map( 320, 160 );
+		// old line
+		//BufferedImage img = map( 320, 160 );
+		// new line
+		BufferedImage img = map( 1920, 1080 );
 		// original code:
 		//savePNG( img, "C:/Java_Dev/test.bmp" );
 		// new location:
