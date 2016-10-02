@@ -14,13 +14,22 @@ public class makeAWorldIntoABitMap {
 
 	public static void main(String[] args) {
 		// declare variables
+		// use multiples of 9 for grid height
 		int gridHeight = 9;
+		// this will generate your width.
 		int gridWidth = (int)(((((double)gridHeight)/9.0)*16.0));
+		// These ratios make for nice photos. 
+
+		// setting up blocks to keep our world.
 		int[][] gridWorld = new int[gridHeight][gridWidth];
 		int[][] gridWorldToCome = new int[gridHeight][gridWidth];
 
+		// setting the odds of randomly starting life. 
+		// A higher value means life is less likely.
+		// For small worlds, 0.7 was a good place to start.
 		double thresholdForLife = 0.7;
 
+		// the number of frames is the number of generations in the model.
 		int numberOfFrames = 4;
 
 		for(int frameCounter = 1; frameCounter < numberOfFrames; frameCounter++){
@@ -36,7 +45,9 @@ public class makeAWorldIntoABitMap {
 
 			customMethodToPrintWorld(gridWorldToCome);
 
-
+			// trying to get the photo to print the correct size:
+			// old line:
+			//BufferedImage img = map( gridHeight, gridWidth, gridWorld, gridWorldToCome );
 			BufferedImage img = map( gridHeight, gridWidth, gridWorld, gridWorldToCome );
 			//savePNG( img, "C:/Users/stf320laptop/Desktop/Koto/MAPtestwithDots.bmp" );
 			//savePNG( img, "C:/Users/stf320laptop/Desktop/Koto/MAPtestwithDots.bmp" );
@@ -46,17 +57,30 @@ public class makeAWorldIntoABitMap {
 			//savePNG( img, "./MAPtestwithDots.bmp" );
 
 			// This line works in the other program, but for now, we seem to be having some other issue.
-			savePNG( img, "/Users/stf320laptop/Desktop/Koto/MapTestColor_" +frameCounter +  ".bmp" );
+			// Mac laptop address
+			//savePNG( img, "/Users/stf320laptop/Desktop/Koto/MapTestColor_" +frameCounter +  ".bmp" );
+			// STF 320 address
+			savePNG( img, "C:/Users/JE640817/Desktop/Koto/MapTestColor3_" +frameCounter +  ".bmp" );
 
 			//http://mindprod.com/jgloss/jpegencoder.html
 			//ImageIO.write( aBufferedImage, "JPEG" /* format desired */, new File( "snap.jpg" ) /* target */ );
 		}
 	}
 
+	/* trying to get it to print in the correct orientation
+	 old lines
 	private static BufferedImage map( int sizeX, int sizeY, int[][] gridWorld, int[][] gridWorldToCome ){
 		final BufferedImage res = new BufferedImage( sizeX, sizeY, BufferedImage.TYPE_INT_RGB );
 		for (int x = 0; x < sizeX; x++){
 			for (int y = 0; y < sizeY; y++){
+	 */
+	// new lines:
+	private static BufferedImage map( int sizeY, int sizeX,  int[][] gridWorld, int[][] gridWorldToCome ){
+		final BufferedImage res = new BufferedImage( sizeY, sizeX,  BufferedImage.TYPE_INT_RGB );
+		for (int y = 0; y < sizeY; y++){
+			for (int x = 0; x < sizeX; x++){
+
+
 
 				/* 
 				 * trying to find out that I had my addresses switched.
@@ -77,38 +101,38 @@ public class makeAWorldIntoABitMap {
 
 				//res.setRGB(x, y, Color.BLACK.getRGB() );
 				// it was dead and is still dead
-				if(0 == gridWorld[x][y] ) {
-					if(0 == gridWorldToCome[x][y] ){
+				if(0 == gridWorld[y][x] ) {
+					if(0 == gridWorldToCome[y][x] ){
 						//res.setRGB(x, y, Color.WHITE.getRGB() );
-						res.setRGB(x, y, Color.BLACK.getRGB() );
+						res.setRGB( y, x, Color.BLACK.getRGB() );
 					}
 
 				} 
 
 				// it was dead, but now is alive
-				if (0 == gridWorld[x][y]){
+				if (0 == gridWorld[y][x]){
 					System.out.println("It was dead.");
 					System.out.println("x is: " + x);
 					System.out.println("y is: " + y);
-					System.out.println(" and our new world value is: " + gridWorldToCome[x][y]);
-					if(1 == gridWorldToCome[x][y]){
+					System.out.println(" and our new world value is: " + gridWorldToCome[y][x]);
+					if(1 == gridWorldToCome[y][x]){
 						//res.setRGB(x, y, Color.ORANGE.getRGB() );
 						System.out.println("We should have a green block.");
-						res.setRGB(x, y, Color.GREEN.getRGB() );
+						res.setRGB( y, x, Color.GREEN.getRGB() );
 					}
 				} 
 
 				// it was alive, but now is dead
-				if (1 == gridWorld[x][y]  && 0 == gridWorldToCome[x][y]){
+				if (1 == gridWorld[y][x]  && 0 == gridWorldToCome[y][x]){
 					//res.setRGB(x, y, Color.PINK.getRGB() );
-					res.setRGB(x, y, Color.RED.getRGB() );
+					res.setRGB( y, x, Color.RED.getRGB() );
 				} 
 
 
 
 				// it was a live and stayed alive
-				if (1 == gridWorld[x][y]  && 1 == gridWorldToCome[x][y]){
-					res.setRGB(x, y, Color.BLUE.getRGB() );
+				if (1 == gridWorld[y][x]  && 1 == gridWorldToCome[y][x]){
+					res.setRGB( y, x, Color.BLUE.getRGB() );
 				} 
 
 
