@@ -1,3 +1,17 @@
+/*
+ * This is a java implementation of Conway's game of life.
+ */
+
+// showing data as an image.
+// from:
+//http://www.java2s.com/Tutorials/Java/Graphics_How_to/Image/Create_BMP_format_image.htm
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.File;
+import java.io.IOException;
+/*from w w w . j a  v a2  s. c  o m*/
+import javax.imageio.ImageIO;
 
 public class ConwayGameOfLife {
 
