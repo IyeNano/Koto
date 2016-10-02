@@ -21,68 +21,97 @@ public class makeAWorldIntoABitMap {
 
 		double thresholdForLife = 0.7;
 
-		// initilize world
-		gridWorld = customMethodToInitilizeWorld(gridWorld, thresholdForLife);
+		int numberOfFrames = 4;
 
-		System.out.println("This is the old world");
-		customMethodToPrintWorld(gridWorld);
+		for(int frameCounter = 1; frameCounter < numberOfFrames; frameCounter++){
 
-		System.out.println("This is the new world");
-		gridWorldToCome = customMethodToInitilizeWorld(gridWorld, thresholdForLife);
+			// initilize world
+			gridWorld = customMethodToInitilizeWorld(gridWorld, thresholdForLife);
 
-		customMethodToPrintWorld(gridWorldToCome);
+			System.out.println("This is the old world");
+			customMethodToPrintWorld(gridWorld);
+
+			System.out.println("This is the new world");
+			gridWorldToCome = customMethodToInitilizeWorld(gridWorld, thresholdForLife);
+
+			customMethodToPrintWorld(gridWorldToCome);
 
 
-		BufferedImage img = map( gridWidth, gridHeight, gridWorld, gridWorldToCome );
-		//savePNG( img, "C:/Users/stf320laptop/Desktop/Koto/MAPtestwithDots.bmp" );
-		//savePNG( img, "C:/Users/stf320laptop/Desktop/Koto/MAPtestwithDots.bmp" );
-		// savePNG( img, "MAPtestwithDots.bmp" );
-		// savePNG( img, "/MAPtestwithDots.bmp" );
-		// savePNG( img, "//MAPtestwithDots.bmp" );
-		//savePNG( img, "./MAPtestwithDots.bmp" );
-		
-		// This line works in the other program, but for now, we seem to be having some other issue.
-		savePNG( img, "/Users/stf320laptop/Desktop/Koto/testWhite.bmp" );
-		
-		//http://mindprod.com/jgloss/jpegencoder.html
-		//ImageIO.write( aBufferedImage, "JPEG" /* format desired */, new File( "snap.jpg" ) /* target */ );
+			BufferedImage img = map( gridHeight, gridWidth, gridWorld, gridWorldToCome );
+			//savePNG( img, "C:/Users/stf320laptop/Desktop/Koto/MAPtestwithDots.bmp" );
+			//savePNG( img, "C:/Users/stf320laptop/Desktop/Koto/MAPtestwithDots.bmp" );
+			// savePNG( img, "MAPtestwithDots.bmp" );
+			// savePNG( img, "/MAPtestwithDots.bmp" );
+			// savePNG( img, "//MAPtestwithDots.bmp" );
+			//savePNG( img, "./MAPtestwithDots.bmp" );
 
+			// This line works in the other program, but for now, we seem to be having some other issue.
+			savePNG( img, "/Users/stf320laptop/Desktop/Koto/MapTestColor_" +frameCounter +  ".bmp" );
+
+			//http://mindprod.com/jgloss/jpegencoder.html
+			//ImageIO.write( aBufferedImage, "JPEG" /* format desired */, new File( "snap.jpg" ) /* target */ );
+		}
 	}
 
 	private static BufferedImage map( int sizeX, int sizeY, int[][] gridWorld, int[][] gridWorldToCome ){
 		final BufferedImage res = new BufferedImage( sizeX, sizeY, BufferedImage.TYPE_INT_RGB );
 		for (int x = 0; x < sizeX; x++){
 			for (int y = 0; y < sizeY; y++){
+
+				/* 
+				 * trying to find out that I had my addresses switched.
+				 *
 				// old line
-				res.setRGB(x, y, Color.WHITE.getRGB() );
+				res.setRGB(x, y, Color.BLACK.getRGB() );
 				// new line
-
-
-				/*
-				// it was dead and is still dead
-				if(0 == gridWorld[x][y]  || 0 == gridWorldToCome[x][y] ){
+				System.out.println("Check if it is alive.");
+				System.out.println("Our row is: " + x);
+				System.out.println("Our column is: " + y);
+				if(0 == gridWorld[x][y] ){
 					//res.setRGB(x, y, Color.WHITE.getRGB() );
-					res.setRGB(x, y, Color.BLACK.getRGB() );
+					res.setRGB(x, y, Color.WHITE.getRGB() );
 				} 
-				
+				System.out.println("Done checking if it is alive.");
+
+				 */
+
+				//res.setRGB(x, y, Color.BLACK.getRGB() );
+				// it was dead and is still dead
+				if(0 == gridWorld[x][y] ) {
+					if(0 == gridWorldToCome[x][y] ){
+						//res.setRGB(x, y, Color.WHITE.getRGB() );
+						res.setRGB(x, y, Color.BLACK.getRGB() );
+					}
+
+				} 
+
+				// it was dead, but now is alive
+				if (0 == gridWorld[x][y]){
+					System.out.println("It was dead.");
+					System.out.println("x is: " + x);
+					System.out.println("y is: " + y);
+					System.out.println(" and our new world value is: " + gridWorldToCome[x][y]);
+					if(1 == gridWorldToCome[x][y]){
+						//res.setRGB(x, y, Color.ORANGE.getRGB() );
+						System.out.println("We should have a green block.");
+						res.setRGB(x, y, Color.GREEN.getRGB() );
+					}
+				} 
+
 				// it was alive, but now is dead
-				if (1 == gridWorld[x][y]  || 0 == gridWorldToCome[x][y]){
+				if (1 == gridWorld[x][y]  && 0 == gridWorldToCome[x][y]){
 					//res.setRGB(x, y, Color.PINK.getRGB() );
 					res.setRGB(x, y, Color.RED.getRGB() );
 				} 
-				
-				// it was dead, but now is alive
-				if (1 == gridWorld[x][y]  || 0 == gridWorldToCome[x][y]){
-					//res.setRGB(x, y, Color.ORANGE.getRGB() );
-					res.setRGB(x, y, Color.GREEN.getRGB() );
-				} 
-				
+
+
+
 				// it was a live and stayed alive
-				if (1 == gridWorld[x][y]  || 1 == gridWorldToCome[x][y]){
+				if (1 == gridWorld[x][y]  && 1 == gridWorldToCome[x][y]){
 					res.setRGB(x, y, Color.BLUE.getRGB() );
 				} 
 
-				*/
+
 			}
 		}
 		return res;
