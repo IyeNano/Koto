@@ -27,7 +27,10 @@ public class makeAbitmap {
 		//savePNG( img, "C:/Java_Dev/test.bmp" );
 		// new location:
 		// C:\Users\LAB\Desktop\Koto
-		savePNG( img, "C:/Users/LAB/Desktop/Koto/testWithPinkAndWhiteAndOrangeAndBlueStripes.bmp" );
+		
+		// for windows machine
+		// savePNG( img, "C:/Users/LAB/Desktop/Koto/testWithPinkAndWhiteAndOrangeAndBlueStripes.bmp" );
+		savePNG( img, "/Users/stf320laptop/Desktop/Koto/TEMPtestWithPinkStripes.bmp" );
 	}
 
 	private static BufferedImage map( int sizeX, int sizeY ){

@@ -34,30 +34,55 @@ public class makeAWorldIntoABitMap {
 
 
 		BufferedImage img = map( gridWidth, gridHeight, gridWorld, gridWorldToCome );
-		savePNG( img, "C:/Users/LAB/Desktop/Koto/MAPtestWithPinkAndWhiteAndOrangeAndBlueStripes.bmp" );
+		//savePNG( img, "C:/Users/stf320laptop/Desktop/Koto/MAPtestwithDots.bmp" );
+		//savePNG( img, "C:/Users/stf320laptop/Desktop/Koto/MAPtestwithDots.bmp" );
+		// savePNG( img, "MAPtestwithDots.bmp" );
+		// savePNG( img, "/MAPtestwithDots.bmp" );
+		// savePNG( img, "//MAPtestwithDots.bmp" );
+		//savePNG( img, "./MAPtestwithDots.bmp" );
+		
+		// This line works in the other program, but for now, we seem to be having some other issue.
+		savePNG( img, "/Users/stf320laptop/Desktop/Koto/testWhite.bmp" );
+		
+		//http://mindprod.com/jgloss/jpegencoder.html
+		//ImageIO.write( aBufferedImage, "JPEG" /* format desired */, new File( "snap.jpg" ) /* target */ );
 
 	}
 
 	private static BufferedImage map( int sizeX, int sizeY, int[][] gridWorld, int[][] gridWorldToCome ){
 		final BufferedImage res = new BufferedImage( sizeX, sizeY, BufferedImage.TYPE_INT_RGB );
-		double randomNumberToSetColor = Math.random();
 		for (int x = 0; x < sizeX; x++){
 			for (int y = 0; y < sizeY; y++){
 				// old line
-				//res.setRGB(x, y, Color.WHITE.getRGB() );
+				res.setRGB(x, y, Color.WHITE.getRGB() );
 				// new line
 
 
-				if(0.25 > randomNumberToSetColor){
-					res.setRGB(x, y, Color.WHITE.getRGB() );
-				} else if (0.25 <= randomNumberToSetColor && 0.5 > randomNumberToSetColor){
-					res.setRGB(x, y, Color.PINK.getRGB() );
-				} else if (0.5 <= randomNumberToSetColor && 0.75 > randomNumberToSetColor){
-					res.setRGB(x, y, Color.ORANGE.getRGB() );
-				} else if (0.75 <= randomNumberToSetColor){
+				/*
+				// it was dead and is still dead
+				if(0 == gridWorld[x][y]  || 0 == gridWorldToCome[x][y] ){
+					//res.setRGB(x, y, Color.WHITE.getRGB() );
+					res.setRGB(x, y, Color.BLACK.getRGB() );
+				} 
+				
+				// it was alive, but now is dead
+				if (1 == gridWorld[x][y]  || 0 == gridWorldToCome[x][y]){
+					//res.setRGB(x, y, Color.PINK.getRGB() );
+					res.setRGB(x, y, Color.RED.getRGB() );
+				} 
+				
+				// it was dead, but now is alive
+				if (1 == gridWorld[x][y]  || 0 == gridWorldToCome[x][y]){
+					//res.setRGB(x, y, Color.ORANGE.getRGB() );
+					res.setRGB(x, y, Color.GREEN.getRGB() );
+				} 
+				
+				// it was a live and stayed alive
+				if (1 == gridWorld[x][y]  || 1 == gridWorldToCome[x][y]){
 					res.setRGB(x, y, Color.BLUE.getRGB() );
 				} 
 
+				*/
 			}
 		}
 		return res;
@@ -66,6 +91,8 @@ public class makeAWorldIntoABitMap {
 	private static void savePNG( final BufferedImage bi, final String path ){
 		try {
 			RenderedImage rendImage = bi;
+			// MAPtestwithDots.bmp
+			// ImageIO.write(rendImage, "bmp", new File(path));
 			ImageIO.write(rendImage, "bmp", new File(path));
 			//ImageIO.write(rendImage, "PNG", new File(path));
 			//ImageIO.write(rendImage, "jpeg", new File(path));
