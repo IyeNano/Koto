@@ -12,6 +12,13 @@ import javax.imageio.ImageIO;
 
 public class makeAbitmap {
 	public static void main(String[] args) {
+		
+		System.out.println(1920.0/1080.0);
+		System.out.println(192.0/108.0);
+		System.out.println(96.0/54.0);
+		System.out.println(48.0/27.0);
+		System.out.println(16.0/9.0);
+		
 		// old line
 		//BufferedImage img = map( 320, 160 );
 		// new line
