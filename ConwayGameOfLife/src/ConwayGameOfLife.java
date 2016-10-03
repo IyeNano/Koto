@@ -16,6 +16,8 @@ import javax.imageio.ImageIO;
 public class ConwayGameOfLife {
 
 	public static void main(String[] args) {
+
+		long startTimeMs = System.currentTimeMillis( );
 		System.out.println("We are going to take over that \n" +
 				"world you are so fond of saying hello to...");
 
@@ -26,8 +28,8 @@ public class ConwayGameOfLife {
 		// http://www.bay12games.com/dwarves/
 
 		// declare variables
-		int gridHeight = 5;
-		int gridWidth = 7;
+		int gridHeight = 60000;
+		int gridWidth = 5000;
 		int[][] gridWorld = new int[gridHeight][gridWidth];
 		int[][] gridWorldToCome = new int[gridHeight][gridWidth];
 
@@ -36,17 +38,17 @@ public class ConwayGameOfLife {
 		int numberOfCycles = 5;
 		int underPopulation = 2; 
 		int overPopulation = 3;
-		
+
 
 
 		// initilize world
 		gridWorld = customMethodToInitilizeWorld(gridWorld, thresholdForLife);
-		
+
 		System.out.println("The world has life.");
-		
+
 
 		// print off the world;
-		customMethodToPrintWorld(gridWorld);
+		//customMethodToPrintWorld(gridWorld);
 		System.out.println("and that is our initial world.");
 
 
@@ -57,7 +59,7 @@ public class ConwayGameOfLife {
 
 			System.out.println("Cycle is " + lifeCycleCounter);
 			// update display
-			customMethodToPrintWorld(gridWorldToCome);
+			//customMethodToPrintWorld(gridWorldToCome);
 
 			// copy the update and make Current World = worldToCome
 			gridWorld = gridWorldToCome;
@@ -66,8 +68,13 @@ public class ConwayGameOfLife {
 
 		// after set number of generations, show what the world was and what it has become.
 		System.out.println("We have completed lives: " +(numberOfCycles) + " and this is our final world.");
-		customMethodToPrintWorld(gridWorld);
-		
+		//customMethodToPrintWorld(gridWorld);
+
+		long taskTimeMs  = 
+				System.currentTimeMillis( ) - startTimeMs;
+		System.out.println("This took " 
+				+ taskTimeMs/1000 + " seconds.");
+
 	}
 
 	public static int[][] customMethodToInitilizeWorld(int[][] gridWorld, double thresholdForLife) {
@@ -92,7 +99,7 @@ public class ConwayGameOfLife {
 			}
 			//System.out.println();
 		}
-		
+
 
 		return gridWorld;
 
@@ -161,9 +168,9 @@ public class ConwayGameOfLife {
 					}
 				}
 				 */
-				
-				
-				
+
+
+
 				if(1 == gridWorldToCome[heightCounter][widthCounter]){
 					if(underPopulation > neighborCount){
 						gridWorldToCome[heightCounter][widthCounter] = 0;
