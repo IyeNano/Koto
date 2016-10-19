@@ -10,8 +10,7 @@ public class TextAdventure {
 		 * as much.
 		 */
 		
-		//Variables for startIntroLoreAndCC custom method
-		
+		//startIntroLoreAndCC custom method to establish Player Character
 		startIntroLoreAndCC();
 	}
 	
@@ -46,21 +45,82 @@ public class TextAdventure {
 			int playerRace = introInput.nextInt();
 			
 			if (playerRace == 1) {
-				System.out.println(playerName + ". A Human lineage: born with bravery.");
+				System.out.println("A Human lineage: born with bravery.");
+				
 			} else if (playerRace == 2) {
-				System.out.println(playerName + ". An Elven lineage: born with patience.");
+				System.out.println("An Elven lineage: born with patience.");
+				
 			} else if (playerRace == 3) {
-				System.out.println(playerName + ". A Half-Elf lineage: born with alacrity.");
+				System.out.println("A Half-Elf lineage: born with integrity.");
+				
 			} else if (playerRace == 4) {
-				System.out.println(playerName + ". A Dwarven lineage: born with hardiness.");
+				System.out.println("A Dwarven lineage: born with hardiness.");
+				
 			} else if (playerRace == 5) {
-				System.out.println(playerName + ". A Tiefling lineage: born with ambition.");
+				System.out.println("A Tiefling lineage: born with ambition.");
+				
 			} else if (playerRace == 6) {
-				System.out.println(playerName + ". A Halfling lineage: born with determination.");
+				System.out.println("A Halfling lineage: born with determination.");
+				
 			}
 			
-			//Prompt user for class
+			//Prompt user for Age and Gender
+			System.out.println("Are you male or female?");
+			
+			String playerGender = introInput.next();
+			
+			if ((playerGender.equalsIgnoreCase("male")) || 
+					(playerGender.equalsIgnoreCase("man")) || 
+					(playerGender.equalsIgnoreCase("guy")) || 
+					(playerGender.equalsIgnoreCase("dude")) || 
+					(playerGender.equalsIgnoreCase("bro"))) {
+				System.out.println("You are a patriarch of your kin. A leader fallen from a large height.");
+			} else if ((playerGender.equalsIgnoreCase("female")) || 
+						(playerGender.equalsIgnoreCase("woman")) || 
+						(playerGender.equalsIgnoreCase("lady")) || 
+						(playerGender.equalsIgnoreCase("dudette")) || 
+						(playerGender.equalsIgnoreCase("madam"))) {
+				System.out.println("You are a matriarch of your kin. A kindly teacher whose wisdom is long lost.");
+			}
+			
+			System.out.println("Do you remember your age? (Enter Age):");
+			
+			String playerAge = introInput.next();
+			
+			//Put Age responses here. Will do later.
+			
+			
+			
+			//Prompt user for class archetype
+			System.out.println("Where do you gain your skill?");
+			System.out.println("My Strength (1), My Alacrity (2), My Wisdom (3).");
+			
+			int playerArchetype = introInput.nextInt();
+			
+			if (playerArchetype == 1) {
+				playerClassWarrior();
+		} else if (playerArchetype == 2) {
+				playerClassRogue();
+		} else if (playerArchetype == 3) {
+				playerClassMage(); 
+				}
 		}
+		
 	}
+
+		private static void playerClassMage() {
+			//custom method for establishing a mage-based class
+		
+		}
+
+		private static void playerClassRogue() {
+			//custom method for establishing a rogue-based class
+		
+		}
+
+		private static void playerClassWarrior() {
+			//custom method for establishing a warrior-based class
+		
+		}
 
 }
