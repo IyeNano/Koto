@@ -10,11 +10,20 @@ public class TextAdventure {
 		 * as much.
 		 */
 		
+		//establish general stat block for player
+		int str1 = (int)(Math.random()*6) + 10;
+		int dex1 = (int)(Math.random()*6) + 10;
+		int con1 = (int)(Math.random()*6) + 10;
+		int int1 = (int)(Math.random()*6) + 10;
+		int wis1 = (int)(Math.random()*6) + 10;
+		int cha1 = (int)(Math.random()*6) + 10;
+		
+		
 		//startIntroLoreAndCC custom method to establish Player Character
-		startIntroLoreAndCC();
+		startIntroLoreAndCC(str1, dex1, con1, int1, wis1, cha1);
 	}
 	
-	public static void startIntroLoreAndCC() {
+	public static void startIntroLoreAndCC(int str1, int dex1, int con1, int int1, int wis1, int cha1) {
 		
 		System.out.println("In the land of E'sural, where the sun-scorched sands glow \nand summer heat remains eternal, you find yourself in a \ndesolate village devoid of life.");
 		System.out.println("Do you awaken? Y/N");
@@ -44,24 +53,32 @@ public class TextAdventure {
 			
 			int playerRace = introInput.nextInt();
 			
+			//Note to self: Don't let Anthony see the racial stat changes. He'd kill me.
 			if (playerRace == 1) {
-				System.out.println("A Human lineage: born with bravery.");
-				
+				System.out.println("You are of a Human lineage: born with bravery.");
+				cha1 = cha1 + 1;
+				wis1 = wis1 - 1;
 			} else if (playerRace == 2) {
-				System.out.println("An Elven lineage: born with patience.");
-				
+				System.out.println("You are of an Elven lineage: born with patience.");
+				dex1 = dex1 + 2;
+				con1 = con1 - 2;
 			} else if (playerRace == 3) {
-				System.out.println("A Half-Elf lineage: born with integrity.");
-				
+				System.out.println("You are of a Half-Elf lineage: born with integrity.");
+				dex1 = dex1 + 1;
+				cha1 = cha1 - 1;
 			} else if (playerRace == 4) {
-				System.out.println("A Dwarven lineage: born with hardiness.");
-				
+				System.out.println("You are of a Dwarven lineage: born with hardiness.");
+				con1 = con1 + 2;
+				dex1 = dex1 - 2;
 			} else if (playerRace == 5) {
-				System.out.println("A Tiefling lineage: born with ambition.");
-				
+				System.out.println("You are of a Tiefling lineage: born with ambition.");
+				dex1 = dex1 + 2;
+				int1 = int1 + 2;
+				cha1 = cha1 - 2;
 			} else if (playerRace == 6) {
-				System.out.println("A Halfling lineage: born with determination.");
-				
+				System.out.println("You are of a Halfling lineage: born with determination.");
+				dex1 = dex1 + 2;
+				str1 = str1 - 2;
 			}
 			
 			//Prompt user for Age and Gender
@@ -87,9 +104,6 @@ public class TextAdventure {
 			
 			String playerAge = introInput.next();
 			
-			//Put Age responses here. Will do later.
-			
-			
 			
 			//Prompt user for class archetype
 			System.out.println("Where do you gain your skill?");
@@ -110,6 +124,17 @@ public class TextAdventure {
 
 		private static void playerClassMage() {
 			//custom method for establishing a mage-based class
+			Scanner classInputMage = new Scanner(System.in);
+			System.out.println("You are a mage. Adept to the arcane arts and a manipulator of reality." +
+								"\nUnder what study are you proficient?");
+			System.out.println("Elementalist (1), Illusionist (2), Scion (3)");
+			
+			int playerArchClass = classInputMage.nextInt();
+			
+			if (playerArchClass == 1) {
+				System.out.println("You are a conjuror of earth, mover of fire, and master of the elements.");
+			}
+			
 		
 		}
 
