@@ -1,0 +1,72 @@
+mport java.util.*;
+public class monsterMaker {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		// create object == monster1 bug
+		SimpleMonster monster1 = new SimpleMonster();
+		
+		//kobold
+		SimpleMonster2 monster2 = new SimpleMonster2();
+		
+		int d20 =  18;
+	
+		System.out.print("you come across a Kobold");
+		
+		
+		
+		
+		
+		
+		//System.out.println("you've encounterd a bug bear " + monster1.HP  );	
+		//System.out.println("you've encounterd a bug bear" + monster1.init );
+		//System.out.println("you've encounterd a bug bear" + monster1.AC );
+		//System.out.println("you've encounterd a bug bear" + monster1.Attack );
+		
+		if (d20 > monster2.HP){
+		
+		}
+		System.out.println("the monster rolls a " + monster2.init  + "for initiative");
+		
+		System.out.println("you've encounterd a  kobold" + monster2.HP );
+		
+		System.out.println("you've encounterd a  kobold" + monster2.AC );
+		System.out.println("you've encounterd a  kobold" + monster2.Attack );
+		
+		
+	int encounter = (int)(Math.random()*2);
+		
+	}
+
+}
+
+class SimpleMonster {
+	int HP;
+	int init;
+	int AC;
+	int Attack;
+	
+	SimpleMonster(){
+		HP = (int)((Math.random()*9)+(Math.random()*9)+(Math.random()*9))+6;
+		init = (int)(Math.random()*20)+2;
+		AC = 17;
+		Attack = (int)(Math.random()*9)+4;
+		
+	}
+	
+}
+
+class SimpleMonster2 {
+	int HP;
+	int init;
+	int AC;
+	int Attack;
+	
+	SimpleMonster2(){
+		HP = (int)(Math.random()*8)+1;
+		init = (int)(Math.random()*20)+2;
+		AC = 17;
+		Attack = (int)(Math.random()*9)+4;
+	}
+}
