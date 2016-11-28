@@ -1,0 +1,115 @@
+import java.util.*;
+public class potato {
+
+	public static void main(String[] args) {
+	
+	Scanner input = new Scanner(System.in);
+	
+
+	
+	System.out.println("Welcome Gaymer!");
+	try{
+	System.out.println("Press 1 to begin ");
+	int start = input.nextInt();
+	System.out.println(start);
+	if (start == 1){ 
+		
+	attack();
+	}
+	else{
+		System.out.println("Goodbye");
+		
+	}
+
+}catch(RuntimeException ex){
+	    System.out.println("Invalid input");
+}
+
+	
+	}
+	
+	//roll a 20 sided die
+	private static int d20Roll(){
+		int d20 = (int)(Math.random() * 20 + 1);
+		return d20;
+	}
+	
+	//roll a 4 sided die
+	private static int d4Roll(){
+		int d4 = (int)(Math.random() * 4 + 1);
+		return d4;
+	}
+	
+	private static void inputAnswer(){
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("Do you wish to try again? Y/N: ");
+		String answer = input.next();
+		
+			if (answer.equalsIgnoreCase("Y")){
+				attack();
+			}
+			else
+				System.out.println("Goodbye");
+			System.exit(0);
+	
+	}
+	
+	private static void attack(){
+		Scanner input = new Scanner(System.in);
+		
+		int baseAttackBonus = 1;
+		int statModifier = 4;
+		int weaponAttack = d4Roll();
+		int setd20 = d20Roll();
+		int modifiedPlayerRoll = setd20 + + baseAttackBonus + statModifier + weaponAttack;
+		int monsterRoll = (int)(Math.random() * 21);
+		
+			System.out.println("To attack, press 2");
+			int go = input.nextInt();
+			
+			if (go == 2){
+					System.out.println("Your initial d20 roll is: " + setd20);
+					if (setd20 == 20){
+							System.out.println("Critical Strike!");
+						} 
+					System.out.println("Your modified roll is: " + modifiedPlayerRoll);
+			}
+				System.out.println("The Monster rolled: " + monsterRoll);
+				
+				if (modifiedPlayerRoll > monsterRoll){
+					winner();
+						
+				}		
+			else if (go != 2){
+				System.out.println("You do not attack");
+						}
+			}
+			inputAnswer();
+		}
+	
+	private static void winner(){
+		
+		int setPlayer = d20Roll();
+		int setMonster = d20Roll();
+		int player = setPlayer;
+		int monster = setMonster;
+		
+		if (player > monster){
+			System.out.println("You rolled: " + player + " and the Monster rolled: " + monster);
+			System.out.println("You beat the Monster!");
+		}
+		if (monster > player){
+			System.out.println("You rolled: " + player + " and the Monster rolled: " + monster);
+			System.out.println("The Monster beat you...");
+		}
+		if (player == monster){
+			System.out.println("You rolled: " + player + " and the Monster rolled: " + monster);
+			System.out.println("The Monster and You are evenly matched!");
+		}
+		
+	}
+	
+	}
+
+
